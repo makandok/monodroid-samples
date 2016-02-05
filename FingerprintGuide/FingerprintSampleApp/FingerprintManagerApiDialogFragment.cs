@@ -108,27 +108,6 @@ namespace Xamarin.FingerprintSample
             }
         }
 
-//        void AuthenticationFailed()
-//        {
-//            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
-//            if (activity != null)
-//            {
-//                string msg = Resources.GetString(Resource.String.authentication_failed_message);
-//                activity.ShowError(msg);
-//            }
-//            Dismiss();
-//        }
-
-//        void AuthenticationError(int errMsgId, string errorMessage)
-//        {
-//            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
-//            if (activity != null)
-//            {
-//                activity.ShowError(errorMessage, string.Format("Error message id {0}.", errMsgId));
-//            }
-//            Dismiss();
-//        }
-
         void StopListeningForFingerprints(bool butStartListeningAgainInOnResume = false)
         {
             if (_cancellationSignal != null)
