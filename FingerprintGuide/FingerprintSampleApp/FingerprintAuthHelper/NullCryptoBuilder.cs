@@ -1,6 +1,6 @@
 using Android.Support.V4.Hardware.Fingerprint;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     Returns null for the CryptoObject.

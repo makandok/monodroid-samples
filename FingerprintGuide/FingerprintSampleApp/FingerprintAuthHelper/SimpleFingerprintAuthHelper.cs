@@ -10,7 +10,7 @@ using Java.Lang;
 using Javax.Crypto;
 using Exception = System.Exception;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     This class is a wrapper around the boilerplate code
@@ -185,7 +185,7 @@ namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
                     // This exception is thrown when there is something wrong with the Cipher
                     // used to encrypt the data.
                     Log.Error(TAG, "BadPaddingException when trying to encrypt the fingerprint scan data: {0}.", bpe);
-                    authValues.Result = FingerprintAuthResult.Crypto;
+                    authValues.Result = FingerprintAuthResult.CryptoError;
                 }
                 catch (IllegalBlockSizeException ibe)
                 {
@@ -194,7 +194,7 @@ namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
                     Log.Error(TAG,
                               "IllegalBlockSizeException when trying to encrypt the fingerprint scan data: {0}.",
                               ibe);
-                    authValues.Result = FingerprintAuthResult.Crypto;
+                    authValues.Result = FingerprintAuthResult.CryptoError;
                 }
                 catch (Exception e)
                 {

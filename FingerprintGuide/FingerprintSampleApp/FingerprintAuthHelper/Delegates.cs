@@ -1,4 +1,4 @@
-﻿namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+﻿namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     A delegate that can be called when the fingerprint scanner is finished to

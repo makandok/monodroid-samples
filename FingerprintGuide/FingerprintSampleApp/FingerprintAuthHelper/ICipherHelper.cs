@@ -1,6 +1,6 @@
 using Javax.Crypto;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     public interface ICipherHelper
     {

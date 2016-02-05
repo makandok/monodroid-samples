@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Android;
 using Android.App;
 using Android.OS;
@@ -10,13 +9,14 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidPermission = Android.Content.PM.Permission;
+using Resource = Xamarin.FingerprintSample.Resource;
 
-namespace BasicFingerPrintSample.FingerprintManagerAPISample
+namespace Xamarin.FingerprintSample
 {
     /// <summary>
     ///     Fingerprint manager API activity.
     /// </summary>
-    [Activity(Label = "@string/activity_fingerprintmanagerapiactivity_title")]
+    [Activity(Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
     public class FingerprintManagerApiActivity : Activity
     {
         static readonly string TAG = "X:" + typeof (FingerprintManagerApiActivity).Name;

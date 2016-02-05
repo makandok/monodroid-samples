@@ -1,7 +1,7 @@
 using System;
 using Android.Support.V4.Hardware.Fingerprint;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     /// An <code>EventArg</code> holding the results of the fingerprint scan.

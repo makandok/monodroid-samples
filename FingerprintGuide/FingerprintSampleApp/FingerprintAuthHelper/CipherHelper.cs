@@ -2,7 +2,7 @@
 using Java.Security;
 using Javax.Crypto;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     A helper that abstracts away the logic for createing the Cipher.

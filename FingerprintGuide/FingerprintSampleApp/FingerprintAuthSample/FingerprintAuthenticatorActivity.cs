@@ -4,7 +4,8 @@ using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using FingerprintAuthSampleActivity.FingerprintAuthHelper;
+using Xamarin.FingerprintSample;
+using Xamarin.FingerprintSample.FingerprintAuthHelper;
 
 namespace BasicFingerPrintSample.FingerprintAuthSample
 {

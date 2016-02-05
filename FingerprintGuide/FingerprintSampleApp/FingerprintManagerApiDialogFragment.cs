@@ -6,16 +6,20 @@ using Android.Support.V4.Hardware.Fingerprint;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using BasicFingerPrintSample;
 using Java.Lang;
 using Javax.Crypto;
 using CancellationSignal = Android.Support.V4.OS.CancellationSignal;
 using Debug = System.Diagnostics.Debug;
 
-namespace BasicFingerPrintSample.FingerprintManagerAPISample
+namespace Xamarin.FingerprintSample
 {
     /// <summary>
-    ///     This is an example of using a DialogFragment for the FingerprintManager API.
+    ///  This DialogFragment is displayed when the app is scanning for fingerprints.
     /// </summary>
+    /// <remarks>This DialogFragment doesn't perform any checks to see if the device
+    /// is actually eligible for fingerprint authentication. All of those checks are performed by the 
+    /// Activity.</remarks>
     public class FingerprintManagerApiDialogFragment : DialogFragment
     {
         static readonly string TAG = "X:" + typeof (FingerprintManagerApiDialogFragment).Name;

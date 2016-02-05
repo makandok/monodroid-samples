@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     /// This exception is raised when there is some kind of problem with 

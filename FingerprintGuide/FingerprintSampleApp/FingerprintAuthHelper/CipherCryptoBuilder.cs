@@ -4,7 +4,7 @@ using Android.Util;
 using Java.Security;
 using Javax.Crypto;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     Builds a <code>CryptoObject<code> for use with the Fingerprint that is a wrapper around a </code></code>

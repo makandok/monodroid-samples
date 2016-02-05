@@ -4,7 +4,7 @@ using Android.Support.V4.Hardware.Fingerprint;
 using Java.Security;
 using Javax.Crypto;
 
-namespace BasicFingerPrintSample.FingerprintManagerAPISample
+namespace Xamarin.FingerprintSample
 {
     /// <summary>
     ///     Sample code for building a CryptoWrapper

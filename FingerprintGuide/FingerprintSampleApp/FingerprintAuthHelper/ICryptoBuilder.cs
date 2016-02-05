@@ -1,6 +1,6 @@
 using Android.Support.V4.Hardware.Fingerprint;
 
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     ///     This interface is implemented by classes that will instantiate a CryptoObject wrapper

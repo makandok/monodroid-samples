@@ -6,14 +6,14 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{AFA90F63-EA2B-4433-BC19-47D540FF3DA1}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>BasicFingerPrintSample</RootNamespace>
+    <RootNamespace>Xamarin.FingerprintSample</RootNamespace>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
-    <AssemblyName>BasicFingerPrintSample</AssemblyName>
+    <AssemblyName>FingerprintSample</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
   </PropertyGroup>
@@ -56,23 +56,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FingerprintManagerAPISample\FingerprintManagerApiDialogFragment.cs" />
+    <Compile Include="FingerprintManagerApiDialogFragment.cs" />
     <Compile Include="FingerprintAuthHelper\CipherCryptoBuilder.cs" />
     <Compile Include="FingerprintAuthHelper\FingerprintAuthException.cs" />
-    <Compile Include="FingerprintAuthHelper\FingerprintManagerHandler.cs" />
+    <Compile Include="FingerprintAuthHelper\Delegates.cs" />
     <Compile Include="FingerprintAuthHelper\FingerprintAuthEventArgs.cs" />
     <Compile Include="FingerprintAuthHelper\ICipherHelper.cs" />
     <Compile Include="FingerprintAuthHelper\ICryptoBuilder.cs" />
-    <Compile Include="MainActivity.cs" />
     <Compile Include="FingerprintAuthHelper\NullCryptoBuilder.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FingerprintAuthHelper\CipherHelper.cs" />
     <Compile Include="FingerprintAuthHelper\FingerprintAuthResult.cs" />
     <Compile Include="FingerprintAuthSample\FingerprintAuthenticatorActivity.cs" />
-    <Compile Include="FingerprintManagerAPISample\FingerprintManagerApiActivity.cs" />
+    <Compile Include="FingerprintManagerApiActivity.cs" />
     <Compile Include="FingerprintAuthHelper\SimpleFingerprintAuthHelper.cs" />
-    <Compile Include="FingerprintManagerAPISample\CryptoObjectHelper.cs" />
+    <Compile Include="CryptoObjectHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

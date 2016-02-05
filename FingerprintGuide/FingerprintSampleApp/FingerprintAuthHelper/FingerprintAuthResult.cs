@@ -1,4 +1,4 @@
-namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
+namespace Xamarin.FingerprintSample.FingerprintAuthHelper
 {
     /// <summary>
     /// The result of the fingerprint scan.
@@ -32,6 +32,6 @@ namespace FingerprintAuthSampleActivity.FingerprintAuthHelper
         /// <summary>
         /// There was an unexpected problem with the crypto used by the Android FingerprintManager.
         /// </summary>
-        Crypto
+        CryptoError
     }
 }
