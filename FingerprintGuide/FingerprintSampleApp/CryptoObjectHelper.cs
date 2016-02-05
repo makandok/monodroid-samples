@@ -1,16 +1,22 @@
 ﻿using System;
 using Android.Security.Keystore;
 using Android.Support.V4.Hardware.Fingerprint;
+using Android.Util;
 using Java.Security;
 using Javax.Crypto;
 
 namespace Xamarin.FingerprintSample
 {
     /// <summary>
-    ///     Sample code for building a CryptoWrapper
+    ///     This class encapsulates the creation of a CryptoObject based on a javax.crypto.Cipher.
     /// </summary>
+    /// <remarks>Each invocation of BuildCryptoObject will instantiate a new CryptoObjet. 
+    /// If necessary a key for the cipher will be created.</remarks>
     public class CryptoObjectHelper
     {
+        // ReSharper disable InconsistentNaming
+        static readonly string TAG = "X:" + typeof (CryptoObjectHelper).Name;
+
         // This can be key name you want. Should be unique for the app.
         static readonly string KEY_NAME = "BasicFingerPrintSample.FingerprintManagerAPISample.sample_fingerprint_key";
 
@@ -22,12 +28,10 @@ namespace Xamarin.FingerprintSample
         static readonly string BLOCK_MODE = KeyProperties.BlockModeCbc;
         static readonly string ENCRYPTION_PADDING = KeyProperties.EncryptionPaddingPkcs7;
 
-        /// <summary>
-        ///     Transformation for the Cipher.
-        /// </summary>
         static readonly string TRANSFORMATION = KEY_ALGORITHM + "/" +
                                                 BLOCK_MODE + "/" +
                                                 ENCRYPTION_PADDING;
+        // ReSharper restore InconsistentNaming
 
         readonly KeyStore _keystore;
 
@@ -58,6 +62,7 @@ namespace Xamarin.FingerprintSample
             }
             catch (KeyPermanentlyInvalidatedException e)
             {
+                Log.Debug(TAG, "The key was invalidated, creating a new key.");
                 _keystore.DeleteEntry(KEY_NAME);
                 if (retry)
                 {
@@ -100,6 +105,7 @@ namespace Xamarin.FingerprintSample
                     .Build();
             keyGen.Init(keyGenSpec);
             keyGen.GenerateKey();
+            Log.Debug(TAG, "New key created for fingerprint authentication.");
         }
     }
 }

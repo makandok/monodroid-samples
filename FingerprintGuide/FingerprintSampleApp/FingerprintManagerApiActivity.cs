@@ -1,6 +1,7 @@
 ﻿using System;
 using Android;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
@@ -8,8 +9,6 @@ using Android.Support.V4.Hardware.Fingerprint;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using AndroidPermission = Android.Content.PM.Permission;
-using Resource = Xamarin.FingerprintSample.Resource;
 
 namespace Xamarin.FingerprintSample
 {
@@ -19,10 +18,11 @@ namespace Xamarin.FingerprintSample
     [Activity(Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
     public class FingerprintManagerApiActivity : Activity
     {
+        // ReSharper disable InconsistentNaming
         static readonly string TAG = "X:" + typeof (FingerprintManagerApiActivity).Name;
         static readonly string DIALOG_FRAGMENT_TAG = "fingerprint_auth_fragment";
-
         static readonly int ERROR_TIMEOUT = 250;
+        // ReSharper restore InconsistentNaming
         bool _canScan;
 
         FingerprintManagerApiDialogFragment _dialogFrag;
@@ -89,9 +89,9 @@ namespace Xamarin.FingerprintSample
 
         void StartFingerprintScan(object sender, EventArgs args)
         {
-            AndroidPermission permissionResult = ContextCompat.CheckSelfPermission(this,
+            Permission permissionResult = ContextCompat.CheckSelfPermission(this,
                                                                                    Manifest.Permission.UseFingerprint);
-            if (permissionResult == AndroidPermission.Granted)
+            if (permissionResult == Permission.Granted)
             {
                 _initialPanel.Visibility = ViewStates.Gone;
                 _authenticatedPanel.Visibility = ViewStates.Gone;

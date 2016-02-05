@@ -6,20 +6,24 @@ using Android.Support.V4.Hardware.Fingerprint;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using BasicFingerPrintSample;
 using Java.Lang;
 using Javax.Crypto;
 using CancellationSignal = Android.Support.V4.OS.CancellationSignal;
-using Debug = System.Diagnostics.Debug;
+
+// ReSharper disable InconsistentNaming
+// ReSharper disable UseStringInterpolation
+// ReSharper disable UseNullPropagation
 
 namespace Xamarin.FingerprintSample
 {
     /// <summary>
-    ///  This DialogFragment is displayed when the app is scanning for fingerprints.
+    ///     This DialogFragment is displayed when the app is scanning for fingerprints.
     /// </summary>
-    /// <remarks>This DialogFragment doesn't perform any checks to see if the device
-    /// is actually eligible for fingerprint authentication. All of those checks are performed by the 
-    /// Activity.</remarks>
+    /// <remarks>
+    ///     This DialogFragment doesn't perform any checks to see if the device
+    ///     is actually eligible for fingerprint authentication. All of those checks are performed by the
+    ///     Activity.
+    /// </remarks>
     public class FingerprintManagerApiDialogFragment : DialogFragment
     {
         static readonly string TAG = "X:" + typeof (FingerprintManagerApiDialogFragment).Name;
@@ -32,7 +36,7 @@ namespace Xamarin.FingerprintSample
 
         bool UserCancelledScan { get; set; }
 
-        CryptoObjectHelper CryptObjectHelper { get; set;  }
+        CryptoObjectHelper CryptObjectHelper { get; set; }
 
         bool IsScanningForFingerprints
         {
@@ -49,7 +53,7 @@ namespace Xamarin.FingerprintSample
             return frag;
         }
 
-        public void Init( bool startScanning = true)
+        public void Init(bool startScanning = true)
         {
             ScanForFingerprintsInOnResume = startScanning;
         }
@@ -81,13 +85,11 @@ namespace Xamarin.FingerprintSample
         public override void OnResume()
         {
             base.OnResume();
-            Log.Debug(TAG, "OnResume: ScanForFingerprintsInOnResume={0}", ScanForFingerprintsInOnResume);
             if (!ScanForFingerprintsInOnResume)
             {
                 return;
             }
 
-            Debug.Assert(_cancellationSignal == null);
             UserCancelledScan = false;
             _cancellationSignal = new CancellationSignal();
             _fingerprintManager.Authenticate(CryptObjectHelper.BuildCryptoObject(),
@@ -100,43 +102,32 @@ namespace Xamarin.FingerprintSample
         public override void OnPause()
         {
             base.OnPause();
-            Log.Debug(TAG, "OnPause: IsScanningForFingerprints={0}", IsScanningForFingerprints);
             if (IsScanningForFingerprints)
             {
                 StopListeningForFingerprints(true);
             }
         }
 
-        void AuthenticationFailed()
-        {
-            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
-            if (activity != null)
-            {
-                string msg = Resources.GetString(Resource.String.authentication_failed_message);
-                activity.ShowError(msg);
-            }
-            Dismiss();
-        }
+//        void AuthenticationFailed()
+//        {
+//            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
+//            if (activity != null)
+//            {
+//                string msg = Resources.GetString(Resource.String.authentication_failed_message);
+//                activity.ShowError(msg);
+//            }
+//            Dismiss();
+//        }
 
-        void AuthenticationError(int errMsgId, string errorMessage)
-        {
-            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
-            if (activity != null)
-            {
-                activity.ShowError(errorMessage, string.Format("Error message id {0}.", errMsgId));
-            }
-            Dismiss();
-        }
-
-        void AuthenticationSuccess()
-        {
-            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
-            if (activity != null)
-            {
-                activity.AuthenticationSuccessful();
-            }
-            Dismiss();
-        }
+//        void AuthenticationError(int errMsgId, string errorMessage)
+//        {
+//            FingerprintManagerApiActivity activity = Activity as FingerprintManagerApiActivity;
+//            if (activity != null)
+//            {
+//                activity.ShowError(errorMessage, string.Format("Error message id {0}.", errMsgId));
+//            }
+//            Dismiss();
+//        }
 
         void StopListeningForFingerprints(bool butStartListeningAgainInOnResume = false)
         {
@@ -147,9 +138,6 @@ namespace Xamarin.FingerprintSample
                 Log.Debug(TAG, "StopListeningForFingerprints: _cancellationSignal.Cancel();");
             }
             ScanForFingerprintsInOnResume = butStartListeningAgainInOnResume;
-            Log.Debug(TAG,
-                      "StopListeningForFingerprints: Stopped listening for fingerprints, _scanForFingerprintsInOnResume={0}.",
-                      ScanForFingerprintsInOnResume);
         }
 
         public override void OnDestroyView()
@@ -164,8 +152,9 @@ namespace Xamarin.FingerprintSample
 
         class SimpleAuthCallbacks : FingerprintManagerCompat.AuthenticationCallback
         {
-            static readonly byte[] SECRET_BYTES = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            // ReSharper disable once MemberHidesStaticFromOuterClass
             static readonly string TAG = "X:" + typeof (SimpleAuthCallbacks).Name;
+            static readonly byte[] SECRET_BYTES = {1, 2, 3, 4, 5, 6, 7, 8, 9};
             readonly FingerprintManagerApiDialogFragment _fragment;
 
             public SimpleAuthCallbacks(FingerprintManagerApiDialogFragment frag)
@@ -182,32 +171,57 @@ namespace Xamarin.FingerprintSample
                     {
                         // Calling DoFinal on the Cipher ensures that the encryption worked.
                         byte[] doFinalResult = result.CryptoObject.Cipher.DoFinal(SECRET_BYTES);
-                        Log.Debug(TAG, "Fingerprint authentication succeeded: {0}",
+                        Log.Debug(TAG, "Fingerprint authentication succeeded, doFinal results: {0}",
                                   Convert.ToBase64String(doFinalResult));
-                        _fragment.AuthenticationSuccess();
+
+                        ReportSuccess();
                     }
                     catch (BadPaddingException bpe)
                     {
                         Log.Error(TAG, "Failed to encrypt the data with the generated key." + bpe);
-                        _fragment.AuthenticationFailed();
+                        ReportAuthenticationFailed();
                     }
                     catch (IllegalBlockSizeException ibse)
                     {
                         Log.Error(TAG, "Failed to encrypt the data with the generated key." + ibse);
-                        _fragment.AuthenticationFailed();
+                        ReportAuthenticationFailed();
                     }
                 }
                 else
                 {
                     // No cipher used, assume that everything went well and trust the results.
                     Log.Debug(TAG, "Fingerprint authentication succeeded.");
-                    _fragment.AuthenticationSuccess();
+                    ReportSuccess();
                 }
+            }
+
+            void ReportSuccess()
+            {
+                FingerprintManagerApiActivity activity = (FingerprintManagerApiActivity) _fragment.Activity;
+                activity.AuthenticationSuccessful();
+                _fragment.Dismiss();
+            }
+
+            void ReportScanFailure(int errMsgId, string errorMessage)
+            {
+                FingerprintManagerApiActivity activity = (FingerprintManagerApiActivity) _fragment.Activity;
+                activity.ShowError(errorMessage, string.Format("Error message id {0}.", errMsgId));
+                _fragment.Dismiss();
+            }
+
+            void ReportAuthenticationFailed()
+            {
+                FingerprintManagerApiActivity activity = (FingerprintManagerApiActivity) _fragment.Activity;
+                string msg = _fragment.Resources.GetString(Resource.String.authentication_failed_message);
+                activity.ShowError(msg);
+                _fragment.Dismiss();
             }
 
             public override void OnAuthenticationError(int errMsgId, ICharSequence errString)
             {
-                // There are some situations where we don't care about the error. 
+                // There are some situations where we don't care about the error. For example, 
+                // if the user cancelled the scan, this will raise errorID #5. We don't want to
+                // report that, we'll just ignore it as that event is a part of the workflow.
                 bool reportError = (errMsgId == (int) FingerprintState.ErrorCanceled) &&
                                    !_fragment.ScanForFingerprintsInOnResume;
 
@@ -216,11 +230,11 @@ namespace Xamarin.FingerprintSample
                 if (_fragment.UserCancelledScan)
                 {
                     string msg = _fragment.Resources.GetString(Resource.String.scan_cancelled_by_user);
-                    _fragment.AuthenticationError(-1, msg);
+                    ReportScanFailure(-1, msg);
                 }
                 else if (reportError)
                 {
-                    _fragment.AuthenticationError(errMsgId, errString.ToString());
+                    ReportScanFailure(errMsgId, errString.ToString());
                     debugMsg += " Reporting the error.";
                 }
                 else
@@ -233,13 +247,13 @@ namespace Xamarin.FingerprintSample
             public override void OnAuthenticationFailed()
             {
                 Log.Info(TAG, "Authentication failed.");
-                _fragment.AuthenticationFailed();
+                ReportAuthenticationFailed();
             }
 
             public override void OnAuthenticationHelp(int helpMsgId, ICharSequence helpString)
             {
                 Log.Debug(TAG, "OnAuthenticationHelp: {0}:`{1}`", helpString, helpMsgId);
-                _fragment.AuthenticationError(helpMsgId, helpString.ToString());
+                ReportScanFailure(helpMsgId, helpString.ToString());
             }
         }
     }
